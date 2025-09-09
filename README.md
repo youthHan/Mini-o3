@@ -72,6 +72,8 @@ The reinforcement learning is based on the coldstart model. You could either use
 
 ```
 export API_KEY=[YOUR_API_KEY]
+export API_VERSION=[YOUR_API_VERSION]
+export END_POINT=[YOUR_END_POINT]
 export BASE_IMAGE_DIR=[YOUR_IMAGES_DIR]
 VISUALPROBE_TRAIN_DATA=${BASE_IMAGE_DIR}/VisualProbe_train/train.json
 DEEPEYES_TRAIN_4K_DATA=${BASE_IMAGE_DIR}/DeepEyes_train_4K/train.json
