@@ -1,4 +1,4 @@
-### Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual Search
+# Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual Search
 
 <a href='https://mini-o3.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
 <a href='https://arxiv.org/pdf/'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
