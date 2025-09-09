@@ -13,7 +13,6 @@ This repository releases the official code for Mini-o3. We achieve the state-of-
 ## Contents
 - [Install](#install)
 - [Model](#model)
-- [Preparation](#preparation)
 - [Train](#train)
 - [Evaluation](#evaluation)
 - [Examples](#examples)
@@ -46,11 +45,6 @@ pip install vllm==0.9.2
 |----------|----------|----------|
 | Cold-start SFT | Mini-o3-7B-SFT | https://huggingface.co/Mini-o3/Mini-o3-7B-SFT | 
 | RL | Mini-o3-7B-v1 | https://huggingface.co/Mini-o3/Mini-o3-7B-v1 | 
-
----
-
-## Preparation
-
 
 ---
 
@@ -183,10 +177,6 @@ Note that the argument `actor_rollout_ref.rollout.val_n` means the `k` in `Avg@k
 ### Evaluation Results
 Mini-o3 (7B) achieves SOTA on visual search benchmarks compared to 7B peers, with strong results on VisualProbe, V* Bench, HR-Bench, and MME-Realworld.
 
-- Visual search: SOTA across difficulty levels on VisualProbe
-- Strong scores on V* Bench, HR-Bench (4K/8K), MME-Realworld
-- Some baselines are re-evaluated to report comparable metrics (Avg@32). Models with only Avg@1 or no weights available are labeled accordingly.
-
 | Model | VisualProbe hard | VisualProbe medium | VisualProbe easy | V* Bench | HR-Bench 4K | HR-Bench 8K | MME-Realworld |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | GPT-4o | 11.2 | 15.4 | 47.5 | 65.2 | 62.0 | 58.3 | 45.2 |
@@ -215,19 +205,19 @@ Mini-o3 demonstrates rich reasoning patterns and deep thinking paths. We provide
 <br>
 
 <div align=center>
-<img width="98%" src="assets/fig_demo_crop_appendix_0.png"/>
+<img width="98%" src="assets/fig_demo_crop_appendix_0.jpg"/>
 </div>
 
 <br>
 
 <div align=center>
-<img width="98%" src="assets/fig_demo_crop_appendix_1.png"/>
+<img width="98%" src="assets/fig_demo_crop_appendix_1.jpg"/>
 </div>
 
 <br>
 
 <div align=center>
-<img width="98%" src="assets/fig_demo_crop_appendix_2.png"/>
+<img width="98%" src="assets/fig_demo_crop_appendix_2.jpg"/>
 </div>
 
 ---
