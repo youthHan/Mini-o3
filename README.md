@@ -228,12 +228,14 @@ Mini-o3 demonstrates rich reasoning patterns and deep thinking paths. We provide
 ## Citation
 
 If you find this repo useful for your research, please consider citing the paper
+```
 @article{lai2025mini-o3,
   title={Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual Search},
   author={Lai, Xin and Li, Junyi and Li, Wei and Liu, Tao and Li, Tianjian and Zhao, Hengshuang},
   journal={arXiv:2509.07969},
   year={2025}
 }
+```
 
 ---
 
