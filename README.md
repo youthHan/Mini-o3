@@ -1,14 +1,14 @@
 # Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual Search
 
 <a href='https://mini-o3.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
-<a href='https://arxiv.org/pdf/'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
+<a href='https://arxiv.org/pdf/2509.07969'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
 <a href='https://huggingface.co/Mini-o3/models'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
 <a href='https://huggingface.co/Mini-o3/datasets'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-green'></a>
 
 This repository releases the official code for Mini-o3. We achieve the state-of-the-art results on various benchmarks and present a full training recipe to reproduce the OpenAI o3-style deep multi-turn “thinking-with-images” capability. The training code is based on [verl](https://github.com/volcengine/verl.git).
 
 ## Release
-- [2025/09/10] 🔥 Mini-o3 is coming! We release the [paper](https://arxiv.org/pdf/), [code](https://github.com/Mini-o3/Mini-o3), [models](https://huggingface.co/Mini-o3/models), and [data](https://huggingface.co/Mini-o3/datasets)!
+- [2025/09/10] 🔥 Mini-o3 is coming! We release the [paper](https://arxiv.org/pdf/2509.07969), [code](https://github.com/Mini-o3/Mini-o3), [models](https://huggingface.co/Mini-o3/models), and [data](https://huggingface.co/Mini-o3/datasets)!
 
 ## Contents
 - [Install](#install)
@@ -227,7 +227,13 @@ Mini-o3 demonstrates rich reasoning patterns and deep thinking paths. We provide
 
 ## Citation
 
-Coming soon (arXiv).
+If you find this repo useful for your research, please consider citing the paper
+@article{lai2025mini-o3,
+  title={Mini-o3: Scaling Up Reasoning Patterns and Interaction Turns for Visual Search},
+  author={Lai, Xin and Li, Junyi and Li, Wei and Liu, Tao and Li, Tianjian and Zhao, Hengshuang},
+  journal={arXiv:2509.07969},
+  year={2025}
+}
 
 ---
 
