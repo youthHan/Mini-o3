@@ -107,7 +107,7 @@ python3 -m verl.trainer.main_ppo \
     data.use_tgt_size=False \
     data.max_pixels=2000000 \
     data.min_pixels=40000 \
-    reward_model.reward_manager=naive_multithreads_v2_tool \
+    reward_model.reward_manager=naive_multithreads_tool \
     actor_rollout_ref.actor.ignore_exceed=True \
     actor_rollout_ref.model.path=Mini-o3/Mini-o3-7B-SFT \
     actor_rollout_ref.actor.optim.lr=1e-6 \
@@ -147,12 +147,12 @@ python3 -m verl.trainer.main_ppo \
     algorithm.kl_ctrl.kl_coef=0.001 \
     trainer.critic_warmup=0 \
     trainer.logger=['console','wandb'] \
-    trainer.project_name='debug' \
-    trainer.experiment_name='debug' \
+    trainer.project_name='Mini-o3' \
+    trainer.experiment_name='Mini-o3-RL' \
     trainer.val_generations_to_log_to_wandb=512 \
     trainer.n_gpus_per_node=8 \
     trainer.nnodes=1 \
-    trainer.save_freq=-1 \
+    trainer.save_freq=25 \
     trainer.default_local_dir=./save \
     trainer.test_freq=5 \
     trainer.total_epochs=100 \
