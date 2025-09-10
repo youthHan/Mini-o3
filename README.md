@@ -57,11 +57,29 @@ Training consists of two stages.
 We recommend to use the popular [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) to perform SFT on our cold-start data. We use [Qwen2.5-VL-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct) as the base model.
 
 1. Install [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory).
-2. Use the script `scripts/preprocess_coldstart.py` to download [Mini-o3-Coldstart-Dataset](Mini-o3/Mini-o3-Coldstart-Dataset) and produce the required data format by LLaMA-Factory.
+2. Use the script `scripts/preprocess_coldstart.py` to download [Mini-o3-Coldstart-Dataset](Mini-o3/Mini-o3-Coldstart-Dataset) and produce the required data format by LLaMA-Factory. This script automatically extracts images and generates a JSON file from the original parquet-format dataset.
 ```
-python3 scripts/preprocess_coldstart.py Mini-o3/Mini-o3-Coldstart-Dataset
+python3 scripts/preprocess_coldstart.py --dataset_path Mini-o3/Mini-o3-Coldstart-Dataset --output_dir [YOUR_DATASET_FOLDER]
 ```
-3. Train Cold-start data with the training configs.
+3. After processing, please follow the instructions in LLaMA-Factory to configure the cold-start data in `data/dataset_info.json`, as shown below, then copy the config file `sft_configs/qwen2.5-vl.yaml` into your LLaMA-Factory codebase.
+```
+"minio3_coldstart": {
+  "file_name": "[YOUR_DATASET_FOLDER]/Mini-o3-Coldstart.json",
+  "formatting": "sharegpt",
+  "columns": {
+    "messages": "conversations",
+    "images": "images"
+  },
+  "tags": {
+    "role_tag": "from",
+    "content_tag": "value",
+    "user_tag": "human",
+    "assistant_tag": "gpt",
+    "system_tag": "system"
+  }
+}
+```
+4. Train Cold-start data with the training configs.
 ```
 llamafactory-cli train sft_configs/qwen2.5-vl.yaml
 ```
