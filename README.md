@@ -8,7 +8,7 @@
 This repository releases the official code for Mini-o3. We achieve the state-of-the-art results on various benchmarks and present a full training recipe to reproduce the OpenAI o3-style deep multi-turn “thinking-with-images” capability. The training code is based on [verl](https://github.com/volcengine/verl.git).
 
 ## Release
-- [2025/09/10] 🔥 Mini-o3 is coming! We release the [paper](https://arxiv.org/pdf/2509.07969), [code](https://github.com/Mini-o3/Mini-o3), [models](https://huggingface.co/Mini-o3/models), and [data](https://huggingface.co/Mini-o3/datasets)!
+- [2025/09/10] 🔥 Mini-o3 is coming! We release the [project page](https://mini-o3.github.io/), [paper](https://arxiv.org/pdf/2509.07969), [code](https://github.com/Mini-o3/Mini-o3), [models](https://huggingface.co/Mini-o3/models), and [data](https://huggingface.co/Mini-o3/datasets)!
 
 ## Contents
 - [Install](#install)
