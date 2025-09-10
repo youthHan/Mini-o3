@@ -86,7 +86,7 @@ llamafactory-cli train sft_configs/qwen2.5-vl.yaml
 
 ### Stage 2: Reinforcement Learning (RL)
 
-The reinforcement learning is based on the coldstart model. You could either use the model produced in stage 1, or directly download it from [Mini-o3-7B-SFT](https://huggingface.co/Mini-o3/Mini-o3-7B-SFT).
+The reinforcement learning is based on the cold-start model. You could either use the model produced in stage 1, or directly download it from [Mini-o3-7B-SFT](https://huggingface.co/Mini-o3/Mini-o3-7B-SFT). We use 8*8 GPUs in training, and you can also specify the arguments `trainer.nnodes` and `trainer.n_gpus_per_node` on your own.
 
 ```
 export API_KEY=[YOUR_API_KEY]
@@ -169,7 +169,7 @@ python3 -m verl.trainer.main_ppo \
     trainer.experiment_name='Mini-o3-RL' \
     trainer.val_generations_to_log_to_wandb=512 \
     trainer.n_gpus_per_node=8 \
-    trainer.nnodes=1 \
+    trainer.nnodes=8 \
     trainer.save_freq=25 \
     trainer.default_local_dir=./save \
     trainer.test_freq=5 \
