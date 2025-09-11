@@ -30,11 +30,11 @@ git clone https://github.com/Mini-o3/Mini-o3.git
 
 2. Install Package
 ```bash
-conda create -n minio3 python=3.10 -y
+conda create -n minio3 python=3.11 -y
 conda activate minio3
 cd Mini-o3
-pip install -e .
-pip install vllm==0.9.2
+pip3 install -r requirements.txt
+pip3 install -e .
 ```
 
 ---
