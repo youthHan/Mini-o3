@@ -35,6 +35,7 @@ conda activate minio3
 cd Mini-o3
 pip3 install -r requirements.txt
 pip3 install -e .
+pip3 install httpx==0.23.3
 ```
 
 ---
