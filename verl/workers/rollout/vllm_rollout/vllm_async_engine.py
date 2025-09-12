@@ -379,6 +379,7 @@ class AsyncvLLMEngine:
     def _preprocess_prompt_to_async_rollout_requests(self, prompts: DataProto, n):
         req_list = []
         for data_idx, _raw_prompt_id in enumerate(prompts.non_tensor_batch["raw_prompt_ids"]):
+            _raw_prompt_id = list(_raw_prompt_id)
             _multimodal_data = prompts.non_tensor_batch["multi_modal_data"][data_idx]
             _image_size_used = prompts.non_tensor_batch["image_size_used"][data_idx][0]
             _raw_prompt = prompts.non_tensor_batch["raw_prompt"][data_idx]

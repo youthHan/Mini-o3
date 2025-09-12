@@ -938,11 +938,11 @@ class RayPPOTrainer(object):
                             {
                                 'output': sample_outputs[i + j],
                                 'score': sample_scores[i + j],
-                                'format_reward': format_reward_tensor[i + j].item(),
-                                'acc_reward': acc_reward_tensor[i + j].item()
+                                'format_reward': format_reward_tensor[i + j],
+                                'acc_reward': acc_reward_tensor[i + j]
                             }
                         )
-                        if acc_reward_tensor[i+j].item() == 1.0:
+                        if acc_reward_tensor[i + j] == 1.0:
                             pass_at_k += 1
                     stats.append(
                         {
