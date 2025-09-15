@@ -812,6 +812,8 @@ class RayPPOTrainer(object):
     def _validate(self):
         reward_tensor_lst = []
         data_source_lst = []
+        format_reward_tensor_lst = []
+        acc_reward_tensor_lst = []
         # Lists to collect samples for the table
         sample_doc_ids = []
         sample_inputs = []
@@ -886,7 +888,8 @@ class RayPPOTrainer(object):
             test_batch = test_batch.union(test_output_gen_batch)
 
             reward_tensor, format_reward_tensor, acc_reward_tensor = test_output_gen_batch.batch['reward_tensor'], test_output_gen_batch.non_tensor_batch['format_scores'], test_output_gen_batch.non_tensor_batch['acc_scores']
-            # invalid_uids = test_output_gen_batch.non_tensor_batch.pop('invalid_uids').sum()
+            format_reward_tensor_lst.append(torch.from_numpy(format_reward_tensor.astype(float)))
+            acc_reward_tensor_lst.append(torch.from_numpy(acc_reward_tensor.astype(float)))
 
             # Store scores
             scores = reward_tensor.sum(-1).cpu().tolist()
@@ -897,6 +900,8 @@ class RayPPOTrainer(object):
         self._maybe_log_val_generations_to_wandb(doc_ids=sample_doc_ids, inputs=sample_inputs, outputs=sample_outputs, ground_truth=sample_ground_truth, scores=sample_scores)
 
         reward_tensor = torch.cat(reward_tensor_lst, dim=0).sum(-1).cpu()  # (batch_size,)
+        format_reward_tensor = torch.cat(format_reward_tensor_lst, dim=0)  # (batch_size,)
+        acc_reward_tensor = torch.cat(acc_reward_tensor_lst, dim=0)  # (batch_size,)
 
         data_sources = np.concatenate(data_source_lst, axis=0)
 
@@ -938,11 +943,11 @@ class RayPPOTrainer(object):
                             {
                                 'output': sample_outputs[i + j],
                                 'score': sample_scores[i + j],
-                                'format_reward': format_reward_tensor[i + j],
-                                'acc_reward': acc_reward_tensor[i + j]
+                                'format_reward': format_reward_tensor[i + j].item(),
+                                'acc_reward': acc_reward_tensor[i + j].item()
                             }
                         )
-                        if acc_reward_tensor[i + j] == 1.0:
+                        if acc_reward_tensor[i + j].item() == 1.0:
                             pass_at_k += 1
                     stats.append(
                         {
