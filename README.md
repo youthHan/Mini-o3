@@ -228,6 +228,7 @@ python3 examples/gui/mini_o3_gui.py --model Mini-o3/Mini-o3-7B-v1 --device cuda
 - `--model` accepts any Mini-o3 checkpoint identifier or local path.
 - Upload an image, ask a question, and the app will show intermediate crops when the model issues `<grounding>` tool calls.
 - Set `--device cpu` if a GPU is not available (expect slower responses).
+- Optional env vars for debugging: `MINIO3_GUI_LOGLEVEL` (default `INFO`) and `MINIO3_GUI_LOG_CHAR_LIMIT` (default `-1` for no truncation).
 
 ## Examples
 

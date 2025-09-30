@@ -29,10 +29,24 @@ except ImportError:  # pragma: no cover - gradio only required at runtime
 
 
 LOG_LEVEL = os.getenv("MINIO3_GUI_LOGLEVEL", "INFO").upper()
+_raw_limit_env = os.getenv("MINIO3_GUI_LOG_CHAR_LIMIT", "-1")
+try:
+    LOG_CHAR_LIMIT = int(_raw_limit_env)
+except ValueError:
+    LOG_CHAR_LIMIT = -1
+
 logger = logging.getLogger(__name__)
 if not logging.getLogger().handlers:
     logging.basicConfig(level=getattr(logging, LOG_LEVEL, logging.INFO))
 logger.setLevel(getattr(logging, LOG_LEVEL, logging.INFO))
+
+
+def _maybe_truncate(payload: str, limit: int = LOG_CHAR_LIMIT) -> str:
+    if limit is None or limit <= 0:
+        return payload
+    if len(payload) <= limit:
+        return payload
+    return "{} ...[truncated {} chars]".format(payload[:limit], len(payload) - limit)
 
 
 @dataclass
@@ -157,7 +171,7 @@ class MiniO3ChatSession:
                     self._image_sources[key] = pil_img
                 content.append({"type": "image", "image": pil_img})
         if text:
-            logger.info("User text: %s", text.strip()[:200])
+            logger.info("User text: %s", _maybe_truncate(text.strip()))
             content.append({"type": "text", "text": text})
         if not content:
             raise ValueError("User message requires text or at least one image")
@@ -214,7 +228,7 @@ class MiniO3ChatSession:
             raise
         generated_ids = outputs[:, prompt_length:]
         text = self.processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
-        logger.info("Assistant raw response: %s", text[:500].strip())
+        logger.info("Assistant raw response: %s", _maybe_truncate(text.strip()))
         self._messages.append(
             {
                 "role": "assistant",
@@ -387,6 +401,8 @@ multi-step crops before producing its final answer."""
             logger.info("Image input updated; resetting session history")
             sess: MiniO3ChatSession = state_dict["session"]
             sess.reset()
+            if image is not None:
+                sess._image_sources["original_image"] = sess._ensure_pil_image(image)
             state_dict["image"] = image
             return [], [], state_dict
 
@@ -408,11 +424,16 @@ multi-step crops before producing its final answer."""
             repetition_penalty_value,
         ):
             sess: MiniO3ChatSession = state_dict["session"]
-            logger.info("UI trigger: message=%s history_len=%d image_cached=%s", (message or "").strip()[:200], len(chat_history), state_dict.get("image") is not None)
+            display_message = _maybe_truncate((message or "").strip())
+            logger.info("UI trigger: message=%s history_len=%d image_cached=%s", display_message, len(chat_history), state_dict.get("image") is not None)
             if not message:
                 logger.debug("Empty message received; returning current observations")
                 observations = _collect_observation_images(sess._image_sources)
                 return chat_history, observations, "", state_dict
+
+            if state_dict.get("image") is not None and "original_image" not in sess._image_sources:
+                logger.info("Seeding original_image from cached state")
+                sess._image_sources["original_image"] = sess._ensure_pil_image(state_dict["image"])
 
             sess.settings.temperature = float(temperature_value)
             sess.settings.top_p = float(top_p_value)
