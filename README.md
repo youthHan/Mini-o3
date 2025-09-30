@@ -216,6 +216,19 @@ Mini-o3 (7B) achieves SOTA on visual search benchmarks compared to 7B peers, wit
 
 ---
 
+## GUI Demo
+
+Run our lightweight Gradio demo to interact with Mini-o3 locally:
+
+```bash
+python3 -m pip install --upgrade gradio pillow transformers
+python3 examples/gui/mini_o3_gui.py --model Mini-o3/Mini-o3-7B-v1 --device cuda
+```
+
+- `--model` accepts any Mini-o3 checkpoint identifier or local path.
+- Upload an image, ask a question, and the app will show intermediate crops when the model issues `<grounding>` tool calls.
+- Set `--device cpu` if a GPU is not available (expect slower responses).
+
 ## Examples
 
 Mini-o3 demonstrates rich reasoning patterns and deep thinking paths. We provide some examples in this section.
