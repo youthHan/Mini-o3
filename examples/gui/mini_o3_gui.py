@@ -517,7 +517,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default=None, help="Device to run on (cuda, cpu, or auto)")
     parser.add_argument("--dtype", default="bfloat16", help="Torch dtype: bfloat16, float16, or float32")
     parser.add_argument("--share", action="store_true", help="Share the public Gradio link")
-    parser.add_argument("--server-port", type=int, default=7860, help="Port for the Gradio server")
+    parser.add_argument("--server-port", type=int, default=17238, help="Port for the Gradio server")
     return parser.parse_args()
 
 
