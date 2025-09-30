@@ -303,6 +303,7 @@ class MiniO3ChatSession:
             if crop is None:
                 logger.warning("Failed to crop image for bbox=%s", bbox)
                 continue
+            crop = _ensure_min_dimensions(crop)
             self._observation_count += 1
             key = f"observation_{self._observation_count}"
             self._image_sources[key] = crop
@@ -347,6 +348,16 @@ class MiniO3ChatSession:
 # ---------------------------------------------------------------------------
 # Utility helpers
 # ---------------------------------------------------------------------------
+
+
+def _ensure_min_dimensions(image: Image.Image, min_size: int = 28) -> Image.Image:
+    width, height = image.size
+    new_width = max(int(round(width)), min_size)
+    new_height = max(int(round(height)), min_size)
+    if new_width == width and new_height == height:
+        return image
+    logger.debug("Upscaling crop from %sx%s to %sx%s", width, height, new_width, new_height)
+    return image.resize((new_width, new_height), resample=Image.BICUBIC)
 
 
 def _collect_observation_images(sources: Dict[str, Image.Image]) -> List[Image.Image]:
