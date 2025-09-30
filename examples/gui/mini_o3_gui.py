@@ -9,6 +9,7 @@ producing a final <answer>.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import logging
 import os
@@ -78,16 +79,20 @@ class ParsedResponse:
 
     @property
     def display_text(self) -> str:
+        def wrap(tag: str, value: str) -> str:
+            escaped = html.escape(value.strip())
+            return f"&lt;{tag}&gt;{escaped}&lt;/{tag}&gt;"
         parts: List[str] = []
         if self.thought:
-            parts.append(f"<think>{self.thought.strip()}</think>")
+            parts.append(wrap("think", self.thought))
         for grounding in self.groundings:
-            parts.append(f"<grounding>{json.dumps(grounding, ensure_ascii=False)}</grounding>")
+            dumped = json.dumps(grounding, ensure_ascii=False)
+            parts.append(wrap("grounding", dumped))
         if self.answer:
-            parts.append(f"<answer>{self.answer.strip()}</answer>")
+            parts.append(wrap("answer", self.answer))
         if parts:
             return "\n".join(parts)
-        return self.raw_text
+        return html.escape(self.raw_text)
 
 
 def _safe_json_loads(payload: str) -> Optional[Dict]:
